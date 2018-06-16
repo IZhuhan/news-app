@@ -28,29 +28,18 @@ export class HomeComponent implements OnInit {
     'in'
   ];
   sourceList = [];
-  color = 'violet';
 
   constructor(
     public news: NewsApiService
   ) { }
 
   ngOnInit() {
-    // Get all news by current country and category
-    this.news.getNewsByCountryAndCategory(this.currentCountry, this.currentCategory).subscribe(news => {
-      this.newsList = news['articles'];
-    });
-
-    // get news sources by current country and category
-    this.news.getSourcesByCountryAndCategory(this.currentCountry, this.currentCategory).subscribe(sources => {
-      if (sources['sources'].length) {
-        this.sourceList = sources['sources'];
-
-        this.currentSource = this.sourceList[0];
-      }
-    });
+    // Get all news and sources by current country and category
+    this.onChange();
   }
 
   onChange() {
+    // Get all news by current country and category
     this.news.getNewsByCountryAndCategory(this.currentCountry, this.currentCategory).subscribe(news => {
       this.newsList = news['articles'];
     });
